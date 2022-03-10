@@ -1,0 +1,402 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900&display=swap');
+
+/* custom properties = basicly variables, needs some scope - ie root > usable anywhere */
+:root {
+  --primary-color: #f60f20; /* change page design on one place */
+  --secondary-color: #1b206e;
+}
+
+/* BASE STYLES */
+* {
+  /*  *reset border-box > padding wont effect width of elements; margin, padding remove spaces */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-family: 'Poppins', sans-serif;
+  color: #111;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 500;
+}
+
+p {
+  margin: 20px 0 10px;
+  font-size: 1.1rem; /* rem unit - multiplier of font size of root html element line 10 (by default 16px. 1rem = 16 x 1 = 16 / option to change font-size html, body to 10px for easy multiplication ) */
+}
+
+section {
+  display: flex;
+  flex-direction: column; /* on i.e. services are section content underneath each other */
+  height: 100vh;
+  align-items: center;
+  padding: 100px;
+  margin-top: 60px;
+}
+
+section.home {
+  flex-direction: row; /* on home page section content net to each other */
+  margin-top: 0; /* margin of inner sections won't affect home page  */
+}
+
+/* BUTTON */
+.btn {
+  cursor: pointer;
+  display: inline-block; /* link= a tag, by default display:inline -> margin wouldnt work */
+  background: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 30px;
+  margin: 20px 0;
+  border: 0;
+}
+
+.btn:hover {
+  transform: scale(0.98);
+}
+
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 100px;
+  font-size: 2rem;
+  font-weight: 700;
+  z-index: 20; /* z-index allways on top, even in full screen navigation opened (higher the number, closer to the screen) */
+}
+
+/* TOGGLE */
+.toggle {
+  position: fixed; /* stay on the same possition, on scroll, allways */
+  top: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: var(--primary-color) url(../images/menu.png);
+  background-size: 30px;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 20;
+  cursor: pointer;
+}
+
+.toggle.active {
+  background: var(--primary-color) url(../images/close.png); /* possible to use pure css for lines creating X */
+  background-size: 25px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* NAVIGATION */ /* area Home - Contact on white backg positioned off scr if not active */
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 100%; /* 100% off scr, ultimatly will be 0 (when active) */
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 15;
+  display: flex;
+  justify-content: center; /* for center horizontally */
+  align-items: center; /* for center vertically */
+}
+
+.navigation.active {
+  left: 0;
+}
+
+.navigation ul {
+  position: relative;
+}
+
+.navigation ul li {
+  position: relative;
+  list-style: none; /* no bullet points */
+  text-align: center;
+}
+
+.navigation ul li a {
+  font-size: 2.2rem;
+  color: #111;
+  text-decoration: none; /* no underline */
+  font-weight: 300;
+}
+
+.navigation ul li a:hover {
+  color: var(--primary-color);
+}
+
+.navigation .social-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* for center horizontally */
+  align-items: center; /* for center vertically */
+}
+
+.navigation .social-bar a {
+  display: inline-block;
+  transform: scale(0.5);
+}
+
+.navigation .email-icon {
+  /* isn't part of ul in social-bar div, so possitioned on bottom */
+  position: absolute;
+  bottom: 20px;
+  transform: scale(0.5);
+}
+
+/* HOMEPAGE */
+.home-content {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+}
+
+.home-img {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 110%;
+}
+
+/* SERVICES PAGE */
+.services {
+  /* services wraps around individual services */
+  margin-top: 40px;
+  display: grid; /* individual services hence are grid items */
+  grid-template-columns: repeat(
+    3,
+    1fr
+  ); /* how wide and how many culumns (3 times one fraction =fr, or another syntax: 1fr 1fr 1fr, possilbe use %) */
+  gap: 40px; /* space in between (horizont&vertical) */
+  text-align: center;
+}
+
+.services .service {
+  padding: 30px;
+}
+
+.services .service:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.services .service h2 {
+  font-size: 24px;
+  font-weight: 500;
+  margin-top: 20px;
+  color: var(--secondary-color);
+}
+
+.services .service .icon img {
+  max-width: 100px;
+}
+
+/* WORK PAGE */
+.portfolio {
+  display: flex; /* flexbox - items oriented in row */
+  flex-wrap: wrap; /* wraps if out of container (scr size) */
+  justify-content: center; /* or add on media queries on sml only  */
+  margin-top: 20px;
+}
+
+.portfolio .item {
+  position: relative; /* hover launch btn absolute relatively to this */
+  width: 300px;
+  height: 300px;
+  margin: 5px;
+}
+
+.portfolio .item .action {
+  position: absolute; /* positioned absolute within item, which is relative */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* 0.8 alpha - transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center; /* "Lounch" to the middle */
+  opacity: 0; /* show only on hover */
+  transition: 0.5s; /* fade in effect on hover */
+}
+
+.portfolio .item:hover .action {
+  opacity: 1;
+}
+
+.portfolio .item .action a {
+  /* styling link on item hower */
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid #fff;
+  padding: 5px 5px;
+}
+
+.portfolio .item img {
+  width: 100%;
+  height: 100%;
+} /* fits the container above */
+
+/* CONTACT */
+.contact {
+  position: relative;
+  width: 100%;
+  margin-top: 50px;
+  display: flex; /* display as flexbox, items in contact are in a row */
+  justify-content: space-between; /* remaining space in between items */
+  align-items: flex-start; /* align to the top, near title */
+}
+
+.contact-form {
+  position: relative;
+  background: #f9f9f9;
+  width: calc(100% - 400px);
+  padding: 60px 40px 20px;
+}
+
+.contact-form form {
+  width: 100%;
+}
+
+.contact-form .row {
+  width: 100%;
+  display: flex; /* inputs side by side */
+}
+
+.contact-form .input50 {
+  width: 50%;
+  margin: 0 10px; /* 0 top and bottom, 10 left and right */
+}
+
+.contact-form .input100 {
+  width: 100%;
+  margin: 0 10px;
+}
+
+.contact-form .row input,
+.contact-form .row textarea {
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #111;
+  background: transparent; /* so it's not white bg on inputs */
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  font-size: 16px;
+  font-weight: 300;
+  margin: 10px 0;
+  resize: none; /* fixed textarea size */
+}
+
+.contact-form .row textarea {
+  height: 150px; /* more lines for msg */
+}
+
+.contact-form .row input[type='submit'] {
+  /* targeted submit type */
+  background-color: var(--secondary-color);
+  color: #fff;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 300;
+  border: 0;
+  cursor: pointer;
+}
+
+.contact-info {
+  width: 350px;
+  background: #f9f9f9;
+  padding: 60px 40px 20px; /* 60top, 40left,right, 20bottom */
+}
+
+.contact-info .info-box {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 40px;
+}
+
+.contact-info .info-box .contact-icon {
+  width: 20px;
+  margin-right: 40px;
+}
+
+.contact-info .info-box .details h4 {
+  color: var(--secondary-color);
+}
+
+.contact-info .info-box .details p,
+.contact-info .info-box .details a {
+  color: #111;
+}
+
+@media (max-width: 1068px) {
+  /* will apply only if under set width */
+  .home-img {
+    display: none;
+  }
+
+  .logo {
+    top: 10px;
+    left: 40px;
+    font-size: 1.5rem;
+  }
+
+  .section {
+    padding: 100px 40px;
+  }
+
+  .navigation ul li a {
+    font-size: 2rem;
+  }
+
+  .services {
+    /* copied from services above */
+    grid-template-columns: repeat(2, 1fr); /* two times one fraction on line */
+  }
+
+  .contact {
+    flex-direction: column; /* flexbox from row underneath each other */
+  }
+
+  .contact-form {
+    width: 100%;
+    padding: 30px 30px 20px;
+  }
+
+  .contact-info {
+    width: 100%;
+    margin-top: 20px;
+    padding: 30px 30px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .services {
+    /* copied from mediaqueries above */
+    grid-template-columns: 1fr; /* no repeat needed */
+  }
+
+  .services .service {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  } /* boarder on sml screen, not only on hower (hower on phone) */
+
+  .contact-form .row {
+    flex-direction: column;
+  }
+
+  .contact-form .input50,
+  .contact-form .input100 {
+    width: 100%;
+    margin: 0;
+  }
+}
